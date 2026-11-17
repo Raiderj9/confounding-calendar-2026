@@ -31,15 +31,14 @@ void fragment() {
 	transition_background.material.set_shader_parameter("radius", 0.0)
 	transition_background.visible = false
 
-
-func change_color(color: Color):
+func change_color(color: Color, instant: bool = false):
 	if current_tween:
-		var radius = transition_background.material.get_shader_parameter("radius")
-		
-		# Preserve the currently displayed background
-		current_background.color = current_background.color.lerp(transition_background.color, radius)
-		
 		current_tween.kill()
+
+	if instant:
+		current_background.color = color
+		transition_background.visible = false
+		return
 
 	transition_background.color = color
 	transition_background.visible = true

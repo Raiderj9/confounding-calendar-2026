@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://bt4a18t8ow547" path="res://Grid/BackgroundController.gd" id="1_2pjv3"]
 [ext_resource type="Script" uid="uid://by8ax1om12rjy" path="res://Grid/BoardController.gd" id="1_451mp"]
 [ext_resource type="PackedScene" uid="uid://jbdcx485v76e" path="res://Grid/GridTile.tscn" id="2_2pjv3"]
-[ext_resource type="Script" uid="uid://b4wfnytpxn6oy" path="res://Grid/Tester.gd" id="3_6dpd2"]
 [ext_resource type="Script" uid="uid://niithktukvrs" path="res://Grid/TileColor.gd" id="3_x65sb"]
+[ext_resource type="Script" uid="uid://b460u8uxvoosd" path="res://Grid/UserInputController.gd" id="6_ls3q4"]
 [ext_resource type="PackedScene" uid="uid://bn8rn7g273qsg" path="res://Grid/Player.tscn" id="6_x65sb"]
+[ext_resource type="Script" uid="uid://2xddrf1ckqtq" path="res://Grid/UndoController.gd" id="7_a2yhn"]
 
 [sub_resource type="Resource" id="Resource_2pjv3"]
 script = ExtResource("3_x65sb")
@@ -67,13 +68,17 @@ background_controller = NodePath("../BackgroundController")
 tile_colors = Array[ExtResource("3_x65sb")]([SubResource("Resource_2pjv3"), SubResource("Resource_6dpd2"), SubResource("Resource_x65sb"), SubResource("Resource_ls3q4")])
 tile_scene = ExtResource("2_2pjv3")
 
-[node name="Tester" type="Node2D" parent="." unique_id=598946393 node_paths=PackedStringArray("board_controller", "player")]
-script = ExtResource("3_6dpd2")
-board_controller = NodePath("../BoardController")
-player = NodePath("../Player")
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1487329569]
 
 [node name="Player" parent="." unique_id=791023873 node_paths=PackedStringArray("board_controller") instance=ExtResource("6_x65sb")]
 scale = Vector2(0.7199985, 0.7199985)
 board_controller = NodePath("../BoardController")
+
+[node name="InputController" type="Node2D" parent="." unique_id=160947401 node_paths=PackedStringArray("undo_controller")]
+script = ExtResource("6_ls3q4")
+undo_controller = NodePath("../UndoController")
+
+[node name="UndoController" type="Node2D" parent="." unique_id=1470752649 node_paths=PackedStringArray("board_controller", "player")]
+script = ExtResource("7_a2yhn")
+board_controller = NodePath("../BoardController")
+player = NodePath("../Player")

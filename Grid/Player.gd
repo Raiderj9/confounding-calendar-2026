@@ -33,6 +33,15 @@ func move(direction: Vector2i):
 		is_moving = false
 		check_walkable()
 	)
+	
+func restore_state(position: Vector2i, dead: bool):
+	grid_position = position
+	is_dead = dead
+	is_moving = false
+
+	self.position = board_controller.grid_to_world(grid_position)
+	rotation_degrees = 180.0 if dead else 0.0
+	modulate = Color.GRAY if dead else Color.WHITE
 
 func check_walkable():
 	var tile = board_controller.get_tile_at(grid_position)

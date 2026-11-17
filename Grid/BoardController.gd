@@ -10,12 +10,19 @@ var current_state: int = 1
 var tiles: Array = []
 
 var board_layout = [
-	[0, 0, 1, 0, 0],
-	[0, 2, 0, 3, 0],
-	[1, 0, 0, 0, 2],
-	[0, 3, 0, 1, 9],
-	[0, 0, 2, 0, 9]
+	[0, 1, 1, 0, 9],
+	[0, 3, 2, 9, 3],
+	[9, 3, 1, 0, 2],
+	[2, 1, 2, 1, 9],
+	[1, 3, 9, 0, 9]
 ]
+
+func get_state() -> int:
+	return current_state
+
+func restore_state(state: int):
+	change_state(state, true)
+
 
 func _ready():
 	build_board()
@@ -61,9 +68,9 @@ func grid_to_world(grid_position: Vector2i) -> Vector2:
 
 	return Vector2(grid_position) * tile_size - offset
 
-func change_state(new_state: int):
+func change_state(new_state: int, instant: bool = false):
 	current_state = new_state
-	background_controller.change_color(tile_colors[new_state].foreground)
+	background_controller.change_color(tile_colors[new_state].foreground, instant)
 
 	for tile in tiles:
 		tile.onChangeToState(current_state)
