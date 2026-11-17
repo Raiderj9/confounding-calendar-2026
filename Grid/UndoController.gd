@@ -13,6 +13,7 @@ func change_board_state(state: int):
 
 	save_snapshot()
 	board_controller.change_state(state)
+	player.check_walkable()
 
 func move_player(direction: Vector2i):
 	if player.is_moving or player.is_dead:
@@ -35,8 +36,10 @@ func check_player_walkable():
 func save_snapshot():
 	var snapshot = {
 		"board_state": board_controller.get_state(),
+		"board_items": board_controller.get_items(),
 		"player_position": player.grid_position,
-		"player_dead": player.is_dead
+		"player_dead": player.is_dead,
+		"collectables": player.get_collected_items()
 	}
 
 	snapshots.append(snapshot)
@@ -50,7 +53,7 @@ func undo():
 
 	var snapshot = snapshots.pop_back()
 
-	board_controller.restore_state(snapshot.board_state)
-	player.restore_state(snapshot.player_position, snapshot.player_dead)
+	board_controller.restore_state(snapshot.board_state, snapshot.board_items)
+	player.restore_state(snapshot.player_position, snapshot.player_dead, snapshot.collectables)
 
 	print("Undo: ", snapshots.size(), " snapshots remaining")

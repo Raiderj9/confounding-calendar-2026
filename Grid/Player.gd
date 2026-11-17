@@ -9,6 +9,8 @@ var grid_position: Vector2i = Vector2i(0, 0)
 var is_moving: bool = false
 var is_dead: bool = false
 
+var collectables = []
+
 func _ready():
 	position = board_controller.grid_to_world(grid_position)
 	check_walkable()
@@ -18,6 +20,11 @@ func move(direction: Vector2i):
 		return
 
 	var target_grid = grid_position + direction
+	var can_move_to = board_controller.can_move_to(target_grid, self)
+	if not can_move_to:
+		return
+
+	
 	var tile = board_controller.get_tile_at(target_grid)
 
 	if tile == null:
@@ -33,20 +40,31 @@ func move(direction: Vector2i):
 		is_moving = false
 		check_walkable()
 	)
-	
-func restore_state(position: Vector2i, dead: bool):
+func get_collectable(item):
+	print("COLLECTING")
+	if item.item_name not in collectables:
+		collectables.append(item.item_name)
+		item.visible = false
+
+
+func restore_state(position: Vector2i, dead: bool, collected_items):
 	grid_position = position
 	is_dead = dead
 	is_moving = false
+	collectables = collected_items
 
 	self.position = board_controller.grid_to_world(grid_position)
 	rotation_degrees = 180.0 if dead else 0.0
 	modulate = Color.GRAY if dead else Color.WHITE
 
 func check_walkable():
+	board_controller.step_onto(grid_position, self)
 	var tile = board_controller.get_tile_at(grid_position)
 	if tile == null or not tile.can_walk():
 		die()
+
+func get_collected_items():
+	return collectables
 
 func die():
 	if is_dead:

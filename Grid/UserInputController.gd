@@ -13,8 +13,6 @@ func _input(event):
 			undo_controller.change_board_state(2)
 		KEY_3:
 			undo_controller.change_board_state(3)
-		KEY_SPACE:
-			undo_controller.check_player_walkable()
 		KEY_W, KEY_UP:
 			undo_controller.move_player(Vector2i.UP)
 		KEY_S, KEY_DOWN:

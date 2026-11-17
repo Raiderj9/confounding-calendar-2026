@@ -4,9 +4,12 @@
 [ext_resource type="Script" uid="uid://by8ax1om12rjy" path="res://Grid/BoardController.gd" id="1_451mp"]
 [ext_resource type="PackedScene" uid="uid://jbdcx485v76e" path="res://Grid/GridTile.tscn" id="2_2pjv3"]
 [ext_resource type="Script" uid="uid://niithktukvrs" path="res://Grid/TileColor.gd" id="3_x65sb"]
+[ext_resource type="Script" uid="uid://dfp6jjlu7gw51" path="res://Grid/PresetItem.gd" id="5_a2yhn"]
+[ext_resource type="PackedScene" uid="uid://dito5ifkk8v61" path="res://Grid/ItemScenes/KeyItem.tscn" id="6_3fve5"]
 [ext_resource type="Script" uid="uid://b460u8uxvoosd" path="res://Grid/UserInputController.gd" id="6_ls3q4"]
 [ext_resource type="PackedScene" uid="uid://bn8rn7g273qsg" path="res://Grid/Player.tscn" id="6_x65sb"]
 [ext_resource type="Script" uid="uid://2xddrf1ckqtq" path="res://Grid/UndoController.gd" id="7_a2yhn"]
+[ext_resource type="PackedScene" uid="uid://btg1qbamaur0p" path="res://Grid/ItemScenes/DoorItem.tscn" id="7_t57oa"]
 
 [sub_resource type="Resource" id="Resource_2pjv3"]
 script = ExtResource("3_x65sb")
@@ -27,6 +30,21 @@ script = ExtResource("3_x65sb")
 background = Color(0, 0, 0, 1)
 foreground = Color(1, 1, 1, 1)
 metadata/_custom_type_script = "uid://niithktukvrs"
+
+[sub_resource type="Resource" id="Resource_ion7q"]
+script = ExtResource("5_a2yhn")
+item_name = "key1"
+position = Vector2i(4, 1)
+item_scene = ExtResource("6_3fve5")
+collectable = true
+metadata/_custom_type_script = "uid://dfp6jjlu7gw51"
+
+[sub_resource type="Resource" id="Resource_kkeeh"]
+script = ExtResource("5_a2yhn")
+item_name = "door1"
+position = Vector2i(1, 3)
+item_scene = ExtResource("7_t57oa")
+metadata/_custom_type_script = "uid://dfp6jjlu7gw51"
 
 [node name="GridMovement" type="Node2D" unique_id=1914188075]
 
@@ -67,6 +85,7 @@ script = ExtResource("1_451mp")
 background_controller = NodePath("../BackgroundController")
 tile_colors = Array[ExtResource("3_x65sb")]([SubResource("Resource_2pjv3"), SubResource("Resource_6dpd2"), SubResource("Resource_x65sb"), SubResource("Resource_ls3q4")])
 tile_scene = ExtResource("2_2pjv3")
+preset_items = Array[ExtResource("5_a2yhn")]([SubResource("Resource_ion7q"), SubResource("Resource_kkeeh")])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1487329569]
 

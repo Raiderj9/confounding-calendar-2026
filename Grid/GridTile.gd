@@ -15,6 +15,7 @@ func _ready():
 	border_color = colors.background
 	fill_color = colors.foreground
 	queue_redraw()
+	
 
 func can_walk() -> bool:
 	return is_walkable
