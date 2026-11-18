@@ -5,5 +5,4 @@
 [node name="DoorItem" type="Node2D" unique_id=41461009]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=745548763]
-scale = Vector2(0.05, 0.05)
 texture = ExtResource("1_cw2su")

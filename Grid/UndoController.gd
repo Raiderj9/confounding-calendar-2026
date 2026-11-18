@@ -16,7 +16,7 @@ func change_board_state(state: int):
 	player.check_walkable()
 
 func move_player(direction: Vector2i):
-	if player.is_moving or player.is_dead:
+	if player.is_moving or player.is_dead or "goal" in player.get_collected_items():
 		return
 
 	var target = player.grid_position + direction
@@ -39,7 +39,7 @@ func save_snapshot():
 		"board_items": board_controller.get_items(),
 		"player_position": player.grid_position,
 		"player_dead": player.is_dead,
-		"collectables": player.get_collected_items()
+		"collectables": player.get_collected_items().duplicate()
 	}
 
 	snapshots.append(snapshot)

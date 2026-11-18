@@ -61,7 +61,10 @@ func build_board():
 func initialize_items():
 	item_instances.clear()
 
-	for item in preset_items:
+	for i in range(preset_items.size()):
+		preset_items[i] = preset_items[i].duplicate()
+		var item = preset_items[i]
+
 		var instance = item.item_scene.instantiate()
 		instance.position = grid_to_world(item.position)
 		add_child(instance)
@@ -86,6 +89,7 @@ func step_onto(grid_position: Vector2i, player: PlayerController):
 			continue
 
 		player.get_collectable(item)
+		item.visible = false
 		item_instances[i].visible = item.visible
 		
 

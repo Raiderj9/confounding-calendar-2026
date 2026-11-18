@@ -5,6 +5,8 @@ class_name PlayerController
 @export var board_controller: Node2D
 @export var move_duration: float = 0.15
 
+@export var win_text: RichTextLabel
+
 var grid_position: Vector2i = Vector2i(0, 0)
 var is_moving: bool = false
 var is_dead: bool = false
@@ -41,10 +43,10 @@ func move(direction: Vector2i):
 		check_walkable()
 	)
 func get_collectable(item):
-	print("COLLECTING")
 	if item.item_name not in collectables:
 		collectables.append(item.item_name)
-		item.visible = false
+		if item.item_name == "goal":
+			win_text.move_to_center()
 
 
 func restore_state(position: Vector2i, dead: bool, collected_items):
@@ -52,6 +54,8 @@ func restore_state(position: Vector2i, dead: bool, collected_items):
 	is_dead = dead
 	is_moving = false
 	collectables = collected_items
+	if "goal" not in collected_items:
+		win_text.reset_position()
 
 	self.position = board_controller.grid_to_world(grid_position)
 	rotation_degrees = 180.0 if dead else 0.0
