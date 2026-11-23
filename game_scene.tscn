@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://chsxwlljpmo6p"]
+[gd_scene load_steps=3 format=3 uid="uid://chsxwlljpmo6p"]
 
 [ext_resource type="PackedScene" uid="uid://c1bib6h4m7or1" path="res://Grid/grid_movement.tscn" id="1_mlf6e"]
+[ext_resource type="PackedScene" uid="uid://hcf1fd5fgopi" path="res://UI/TestUI.tscn" id="1_po0ka"]
 
-[node name="GameScene" type="Node2D" unique_id=1411621550]
+[node name="GameScene" type="Node2D"]
 
-[node name="GridMovement" parent="." unique_id=1914188075 instance=ExtResource("1_mlf6e")]
+[node name="Node2D" parent="." instance=ExtResource("1_po0ka")]
+
+[node name="GridMovement" parent="." instance=ExtResource("1_mlf6e")]

@@ -3,7 +3,7 @@ extends Node2D
 @export var background_controller: BackgroundController
 @export var tile_colors: Array[TileColor]
 @export var tile_scene: PackedScene
-@export var tile_size: float = 64.0
+@export var tile_size: float = 16.0
 @export var preset_items: Array[PresetItem]
 
 var current_state: int = 1
@@ -66,9 +66,10 @@ func initialize_items():
 		var item = preset_items[i]
 
 		var instance = item.item_scene.instantiate()
-		instance.position = grid_to_world(item.position)
 		add_child(instance)
+		instance.global_position = grid_to_world(item.position)
 		instance.visible = item.visible
+		print(instance.global_position)
 		item_instances.append(instance)
 
 func can_move_to(grid_position: Vector2i, player: PlayerController):
@@ -109,11 +110,11 @@ func get_tile_at(grid_position: Vector2i):
 	return null
 
 func grid_to_world(grid_position: Vector2i) -> Vector2:
-	var rows = board_layout.size()
-	var columns = board_layout[0].size()
-	var offset = Vector2(columns - 1, rows - 1) * tile_size / 2
-
-	return Vector2(grid_position) * tile_size - offset
+	#var rows = board_layout.size()
+	#var columns = board_layout[0].size()
+	#var offset = Vector2(columns - 1, rows - 1) * tile_size / 2
+	var tile = get_tile_at(grid_position)
+	return tile.global_position
 
 func change_state(new_state: int, instant: bool = false):
 	current_state = new_state
